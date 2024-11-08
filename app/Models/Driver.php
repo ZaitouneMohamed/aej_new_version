@@ -15,4 +15,11 @@ class Driver extends Model
      * @var string
      */
     protected $table = 'chaufeurs';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $fillable = ['full_name' , "code" , "phone" , "numero_2" , "adresse" , "cnss" , "email" , "cni" , "statue"];
 }

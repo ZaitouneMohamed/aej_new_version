@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -33,6 +35,12 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+            ],
+            "driversCount" => Cache::rememberForever("driversCount", function () {
+                return Driver::count();
+            }),
+            'flash' => [
+                'success' => session('success'),
             ],
         ];
     }

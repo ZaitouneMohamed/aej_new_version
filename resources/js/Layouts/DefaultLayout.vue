@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import HeaderArea from '@/components/Header/HeaderArea.vue'
-import SidebarArea from '@/components/Sidebar/SidebarArea.vue'
+import HeaderArea from '@/Components/Header/HeaderArea.vue'
+import AlertSuccess from '@/Components/Alerts/AlertSuccess.vue'
+import SidebarArea from '@/Components/Sidebar/SidebarArea.vue'
 </script>
 
 <template>
@@ -19,6 +20,10 @@ import SidebarArea from '@/components/Sidebar/SidebarArea.vue'
       <!-- ===== Main Content Start ===== -->
       <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <div v-if="$page.props.flash.success">
+                <AlertSuccess  :message="$page.props.flash.success" />
+            </div>
+
           <slot></slot>
         </div>
       </main>

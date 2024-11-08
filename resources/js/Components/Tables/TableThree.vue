@@ -7,6 +7,14 @@ const packages = ref([
   { name: 'Business Package', price: '$99.00', invoiceDate: 'Jan 13, 2025', status: 'Unpaid' },
   { name: 'Standard Package', price: '$59.00', invoiceDate: 'Jan 13, 2025', status: 'Pending' }
 ])
+
+const props = defineProps({
+    data: Object,
+    columns: Array,
+    columnsName: Array,
+});
+
+const data = props.data.data ? props.data.data : props.data;
 </script>
 
 <template>
@@ -17,26 +25,26 @@ const packages = ref([
       <table class="w-full table-auto">
         <thead>
           <tr class="bg-gray-2 text-left dark:bg-meta-4">
-            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-              Package
+            <th class="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11" v-for="(item, index) in columnsName" :key="index">
+              {{ item }}
             </th>
-            <th class="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+            <!-- <th class="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
               Invoice date
             </th>
-            <th class="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Status</th>
+            <th class="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Status</th> -->
             <th class="py-4 px-4 font-medium text-black dark:text-white">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in packages" :key="index">
-            <td class="py-5 px-4 pl-9 xl:pl-11">
-              <h5 class="font-medium text-black dark:text-white">{{ item.name }}</h5>
-              <p class="text-sm">{{ item.price }}</p>
+          <tr v-for="(item, index) in data" :key="index">
+            <!-- <td class="py-5 px-4 pl-9 xl:pl-11">
+              <h5 class="font-medium text-black dark:text-white">{{ item.full_name }}</h5>
+              <p class="text-sm">{{ item.code }}</p>
+            </td> -->
+            <td class="py-5 px-4" v-for="col in columns">
+              <p class="text-black dark:text-white">{{ item[col] }}</p>
             </td>
-            <td class="py-5 px-4">
-              <p class="text-black dark:text-white">{{ item.invoiceDate }}</p>
-            </td>
-            <td class="py-5 px-4">
+            <!-- <td class="py-5 px-4">
               <p
                 class="inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium"
                 :class="{
@@ -47,7 +55,7 @@ const packages = ref([
               >
                 {{ item.status }}
               </p>
-            </td>
+            </td> -->
             <td class="py-5 px-4">
               <div class="flex items-center space-x-3.5">
                 <button class="hover:text-primary">
